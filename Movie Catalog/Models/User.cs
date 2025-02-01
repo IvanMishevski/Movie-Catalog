@@ -7,13 +7,17 @@ namespace Movie_Catalog.Models
     {
         public int Id { get; set; }
 
+
         [MaxLength(50)]
+        [Required]
         public string? Username { get; set; }
 
         [MaxLength(100)]
+        [Required]
         public string? Email { get; set; }
 
         [MaxLength(225)]
+        [Required]
         public string? Password { get; set; }
 
         [Required]
