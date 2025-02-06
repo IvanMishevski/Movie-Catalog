@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Movie_Catalog.Models;
+
 namespace Movie_Catalog
 {
     public class Program
@@ -8,6 +11,11 @@ namespace Movie_Catalog
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Add inside builder.Services section
+            builder.Services.AddDbContext<MovieCatalogContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
             var app = builder.Build();
 
