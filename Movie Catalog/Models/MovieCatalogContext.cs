@@ -39,11 +39,11 @@ namespace Movie_Catalog.Models
 
             //Seed data
             modelBuilder.Entity<Genre>().HasData(
-            new Genre { Id = 1, Name = "Action", CreatedAt = DateTime.UtcNow },
-            new Genre { Id = 2, Name = "Adventure", CreatedAt = DateTime.UtcNow },
-            new Genre { Id = 3, Name = "Comedy", CreatedAt = DateTime.UtcNow },
-            new Genre { Id = 4, Name = "Drama", CreatedAt = DateTime.UtcNow },
-            new Genre { Id = 5, Name = "Horror", CreatedAt = DateTime.UtcNow }
+            new Genre { Id = 1, Name = "Action", CreatedAt = new DateTime(2023, 01, 15, 10, 30, 00, DateTimeKind.Utc) },
+            new Genre { Id = 2, Name = "Adventure", CreatedAt = new DateTime(2022, 06, 20, 14, 45, 00, DateTimeKind.Utc) },
+            new Genre { Id = 3, Name = "Comedy", CreatedAt = new DateTime(2021, 11, 05, 08, 15, 00, DateTimeKind.Utc) },
+            new Genre { Id = 4, Name = "Drama", CreatedAt = new DateTime(2024, 03, 10, 19, 20, 00, DateTimeKind.Utc) },
+            new Genre { Id = 5, Name = "Horror", CreatedAt = new DateTime(2020, 09, 25, 22, 50, 00, DateTimeKind.Utc) }
             );
             modelBuilder.Entity<Director>().HasData(
             new Director { DirectorId = 1, Name = "Christopher Nolan" },
@@ -60,61 +60,11 @@ namespace Movie_Catalog.Models
             new Actor { Id = 5, Name = "Daniel Kaluuya" }
             );
             modelBuilder.Entity<Movie>().HasData(
-            new Movie
-            {
-            Id = 1,
-            Title = "The Final Stand",
-            Description = "A gripping tale of survival in a post-apocalyptic world.",
-            ReleaseYear = 2020,
-            Duration = 130,
-            GenreId = 1, // Action
-            DirectorId = 1,
-            CreatedAt = DateTime.UtcNow
-            },
-            new Movie
-            {
-            Id = 2,
-            Title = "Quest for Glory",
-            Description = "An epic adventure of a young hero seeking his destiny.",
-            ReleaseYear = 2018,
-            Duration = 145,
-            GenreId = 2, // Adventure
-            DirectorId = 2,
-            CreatedAt = DateTime.UtcNow
-            },
-            new Movie
-            {
-            Id = 3,
-            Title = "Laugh Out Loud",
-            Description = "A hilarious comedy about friends navigating adulthood.",
-            ReleaseYear = 2022,
-            Duration = 95,
-            GenreId = 3, // Comedy
-            DirectorId = 3,
-            CreatedAt = DateTime.UtcNow
-            },
-            new Movie
-            {
-            Id = 4,
-            Title = "Tears of Tomorrow",
-            Description = "A touching drama exploring the complexities of human emotions.",
-            ReleaseYear = 2019,
-            Duration = 120,
-            GenreId = 4, // Drama
-            DirectorId = 4,
-            CreatedAt = DateTime.UtcNow
-            },
-            new Movie
-            {
-            Id = 5,
-            Title = "Nightfall",
-            Description = "A spine-chilling horror film set in an abandoned asylum.",
-            ReleaseYear = 2021,
-            Duration = 110,
-            GenreId = 5, // Horror
-            DirectorId = 5,
-            CreatedAt = DateTime.UtcNow
-            }
+             new Movie { Id = 1, Title = "The Final Stand", Description = "In a world on the brink of collapse, a rogue soldier must unite unlikely allies to save humanity from its greatest threat.", CreatedAt = new DateTime(2023, 04, 01, 12, 00, 00, DateTimeKind.Utc), GenreId = 1, DirectorId = 1, ReleaseYear = 2020, Duration = 130 },
+             new Movie { Id = 2, Title = "Quest for Glory", Description = "A young adventurer embarks on a perilous journey to reclaim a lost artifact, facing mythical creatures and ancient secrets.", CreatedAt = new DateTime(2022, 08, 15, 16, 30, 00, DateTimeKind.Utc), GenreId = 2, DirectorId = 2, ReleaseYear = 2018, Duration = 145 },
+             new Movie { Id = 3, Title = "Laugh Out Loud", Description = "A series of hilarious misadventures unfolds when an awkward office worker tries to impress his coworkers during a company retreat.", CreatedAt = new DateTime(2021, 03, 22, 09, 10, 00, DateTimeKind.Utc), GenreId = 3, DirectorId = 3, ReleaseYear = 2022, Duration = 95 },
+             new Movie { Id = 4, Title = "Tears of Tomorrow", Description = "In a dystopian future, two strangers form an unlikely bond as they fight to survive in a world devoid of hope.", CreatedAt = new DateTime(2024, 12, 05, 18, 40, 00, DateTimeKind.Utc), GenreId = 4, DirectorId = 4, ReleaseYear = 2019, Duration = 120 },
+             new Movie { Id = 5, Title = "Nightfall", Description = "A small town is haunted by mysterious disappearances, and a group of friends must uncover the dark truth before it's too late.", CreatedAt = new DateTime(2020, 07, 30, 21, 05, 00, DateTimeKind.Utc), GenreId = 5, DirectorId = 5, ReleaseYear = 2021, Duration = 110 }
             );
             modelBuilder.Entity<MovieActor>().HasData(
             new MovieActor { MovieId = 1, ActorId = 1 }, // The Final Stand - Leonardo DiCaprio
