@@ -1,18 +1,19 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Movie_Catalog</title>
+    <title>@ViewData["Title"] - MovieCatalog</title>
+    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Movie_Catalog.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MovieCatalog.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Movie_Catalog</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MovieCatalog</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,6 +31,35 @@
             </div>
         </nav>
     </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="/">🎬 Movie Catalog</a>
+
+            <!-- Menu -->
+            <div class="dropdown">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Меню
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/">Начало</a></li>
+                    <li><a class="dropdown-item" href="/Movies">Филми</a></li>
+                    <li><a class="dropdown-item" href="/Genres">Категории</a></li>
+                    <li><a class="dropdown-item" href="/Home/About">За нас</a></li>
+                    <li><a class="dropdown-item" href="/Home/Contact">Контакти</a></li>
+                </ul>
+            </div>
+
+            <!-- Search ang log in button -->
+            <div class="d-flex ms-auto">
+                <form class="d-flex me-3" method="get" action="/Home/Search">
+                    <input class="form-control me-2" type="text" name="query" placeholder="Търсене на филми">
+                    <button class="btn btn-outline-light" type="submit">🔍</button>
+                </form>
+                <a class="btn btn-outline-light" href="/Account/Login">Вход</a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -38,7 +68,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - Movie_Catalog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - MovieCatalog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
