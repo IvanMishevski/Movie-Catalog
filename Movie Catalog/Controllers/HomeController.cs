@@ -15,6 +15,7 @@ namespace Movie_Catalog.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 

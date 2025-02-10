@@ -20,6 +20,8 @@ namespace Movie_Catalog.Models
         [Required]
         public int Duration { get; set; }
 
+        public string? PosterUrl { get; set; }
+
         [Required]
         public int GenreId { get; set; } 
         [ForeignKey("GenreId")]
