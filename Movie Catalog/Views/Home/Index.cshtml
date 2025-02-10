@@ -1,13 +1,47 @@
-﻿@model IEnumerable<Movie_Catalog.Models.Movie>
+@model IEnumerable<MovieCatalog.Models.Movie>
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    @foreach (var movie in Model)
-    {
-        <h1>@movie.Genre?.Name</h1>
+<style>
+    .movie-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
+
+        .movie-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+    .display-4{
+        font-family: 'Garamond', sans-serif;
+    }
+    }
+
+    .mt-4 {
+        font-family: 'Garamond', sans-serif;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Movie Catalog!</h1>
+
+    <h2 class="mt-4">🎬 Топ Филми</h2>
+    <div class="row">
+        @foreach (var movie in Model)
+        {
+            <div class="col-md-4">
+                <div class="card movie-card mb-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@movie.Title</h5>
+                        <p class="card-text">@movie.Description</p>
+                        <p class="card-text"><strong>Жанр:</strong> @movie.Genre</p>
+
+                        <a href="#" class="btn btn-primary">Детайли</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
