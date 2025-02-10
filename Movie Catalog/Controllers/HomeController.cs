@@ -16,14 +16,24 @@ namespace Movie_Catalog.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
             var movies = _context.Movies
-                         .Include(m => m.Genre)
-                         .Include(m => m.Director)
-                         .ToList();
-            
-            return View(movies);
+            .Include(m => m.Genre)
+            .Include(m => m.Director)
+            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(m =>
+                    m.Title.Contains(searchString) ||
+                    m.Description.Contains(searchString) ||
+                    m.Genre.Name.Contains(searchString) ||
+                    m.Director.Name.Contains(searchString)
+                );
+            }
+
+            return View(movies.ToList());
         }
 
         public IActionResult Privacy()
