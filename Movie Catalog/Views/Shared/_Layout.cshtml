@@ -52,15 +52,15 @@
 
             <!-- Search ang log in button -->
             <div class="d-flex ms-auto">
-                <form class="d-flex me-3" method="get" action="/Home/Search">
+                <form class="d-flex me-3" asp-controller="Home" asp-action="Index" method="get">
                     <!-- Dropdown filter -->
-                    <select class="form-select me-2" name="filter">
-                        <option value="title">Заглавие</option>
-                        <option value="genre">Жанр</option>
-                        <option value="author">Автор</option>
+                    <select class="form-select me-2" name="filter" asp-for="@ViewData["CurrentFilter"]">
+                        <option value="title">Title</option>
+                        <option value="genre">Genre</option>
+                        <option value="year">Year</option>
                     </select>
 
-                    <input class="form-control me-2" type="text" name="query" placeholder="Търсене на филми">
+                    <input class="form-control me-2" type="text" name="searchString" placeholder="Търсене на филми" value="@ViewData["SearchString"]">
 
                     <button class="btn btn-outline-light" type="submit">🔍</button>
                 </form>

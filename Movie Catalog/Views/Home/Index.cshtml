@@ -1,4 +1,4 @@
-@model IEnumerable<MovieCatalog.Models.Movie>
+@model IEnumerable<Movie_Catalog.Models.Movie>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@movie.Title</h5>
                         <p class="card-text">@movie.Description</p>
-                        <p class="card-text"><strong>Жанр:</strong> @movie.Genre</p>
+                        <p class="card-text"><strong>Жанр:</strong> @movie.Genre.Name</p>
 
                         <a href="#" class="btn btn-primary">Детайли</a>
                     </div>
