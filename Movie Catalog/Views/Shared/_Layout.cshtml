@@ -53,12 +53,21 @@
             <!-- Search ang log in button -->
             <div class="d-flex ms-auto">
                 <form class="d-flex me-3" method="get" action="/Home/Search">
+                    <!-- Dropdown filter -->
+                    <select class="form-select me-2" name="filter">
+                        <option value="title">Заглавие</option>
+                        <option value="genre">Жанр</option>
+                        <option value="author">Автор</option>
+                    </select>
+
                     <input class="form-control me-2" type="text" name="query" placeholder="Търсене на филми">
+
                     <button class="btn btn-outline-light" type="submit">🔍</button>
                 </form>
+
                 <a class="btn btn-outline-light" href="/Account/Login">Вход</a>
             </div>
-        </div>
+
     </nav>
     <div class="container">
         <main role="main" class="pb-3">
