@@ -24,6 +24,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MoviesDetails" asp-action="Index">MoviesDetails</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
@@ -39,16 +42,17 @@
             <!-- Menu -->
             <div class="dropdown">
                 <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    Меню
+                    Menu
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/">Начало</a></li>
-                    <li><a class="dropdown-item" href="/Movies">Филми</a></li>
-                    <li><a class="dropdown-item" href="/Genres">Категории</a></li>
-                    <li><a class="dropdown-item" href="/Home/About">За нас</a></li>
-                    <li><a class="dropdown-item" href="/Home/Contact">Контакти</a></li>
+                    <li><a class="dropdown-item" href="/">Home</a></li>
+                    <li><a class="dropdown-item" href="/Movies">Films</a></li>
+                    <li><a class="dropdown-item" href="/Movies">Statistics and Reviews</a></li>
+                    <li><a class="dropdown-item" href="/Home/About">About us</a></li>
+                    <li><a class="dropdown-item" href="/Home/Contact">Contacts</a></li>
                 </ul>
             </div>
+        </div>
 
             <!-- Search ang log in button -->
             <div class="d-flex ms-auto">
@@ -60,12 +64,12 @@
                         <option value="year">Year</option>
                     </select>
 
-                    <input class="form-control me-2" type="text" name="searchString" placeholder="Търсене на филми" value="@ViewData["SearchString"]">
+                    <input class="form-control me-2" type="text" name="searchString" placeholder="Search" value="@ViewData["SearchString"]">
 
                     <button class="btn btn-outline-light" type="submit">🔍</button>
                 </form>
 
-                <a class="btn btn-outline-light" href="/Account/Login">Вход</a>
+                <a class="btn btn-outline-light" href="/Account/Login">Log in</a>
             </div>
 
     </nav>
