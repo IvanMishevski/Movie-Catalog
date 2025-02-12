@@ -1,0 +1,66 @@
+@{
+    ViewBag.Title = "About Us";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/site.css" />
+    <style>
+        body {
+            font-family: 'Garamond', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            color: #333;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            transition: color 0.3s ease;
+        }
+
+            h1:hover {
+                color: #6b2390;
+            }
+
+        section {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>@ViewBag.Title</h1>
+        </header>
+
+        <section>
+            <h2>Our Mission</h2>
+            <p>Our web application is designed to provide movie lovers with an easy and convenient way to discover new films and manage personal collections. We believe that a great movie can inspire, entertain, and broaden one's perspective of the world. That's why we are here—to help you find the best films for every mood!</p>
+
+            <h2>How We Work</h2>
+            <p>Our catalog contains hundreds of movies from various genres and directors. Users can browse, search, and add movies to their personal lists. To make things easier, our application offers filters and sorting options so that you can quickly find the movie you’re looking for—whether it’s a new release or a classic from the golden age of cinema.</p>
+
+            <h2>Our Vision</h2>
+            <p>We believe that movies are a way to immerse yourself in new stories, experience emotions, and explore new worlds. Our goal is to create a space where movies are easily accessible and inspire new generations of viewers to find not only entertainment but also profound messages and valuable lessons from each piece of cinematic art.</p>
+
+            <h2>Contact Us</h2>
+            <p>If you have any questions or suggestions, feel free to reach out to us at email@example.com or through our contact page.</p>
+        </section>
+    </div>
+</body>
+</html>
