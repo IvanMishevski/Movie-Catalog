@@ -46,7 +46,6 @@ namespace Movie_Catalog.Controllers
             ViewData["SearchString"] = searchString;
             return View(movies.ToList());
         }
-
         public IActionResult Privacy()
         {
             return View();
