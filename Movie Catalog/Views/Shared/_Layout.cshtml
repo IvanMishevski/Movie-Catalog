@@ -24,9 +24,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MoviesDetails" asp-action="Index">MoviesDetails</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
@@ -47,8 +44,8 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/">Home</a></li>
                     <li><a class="dropdown-item" href="/Movies">Films</a></li>
-                    <li><a class="dropdown-item" href="/Movies">Statistics and Reviews</a></li>
-                    <li><a class="dropdown-item" href="/Home/About">About us</a></li>
+                    <li><a class="dropdown-item" asp-controller="StatisticsAndReviews" asp-action="StatisticsAndReviews">Statistics and Reviews</a></li>
+                    <li><a class="dropdown-item" asp-controller="AboutUs" asp-action="AboutUs">About us</a></li>
                     <li><a class="dropdown-item" href="/Home/Contact">Contacts</a></li>
                 </ul>
             </div>
