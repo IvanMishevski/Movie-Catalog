@@ -27,18 +27,19 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to the Movie Catalog!</h1>
 
-    <h2 class="mt-4">🎬 Топ Филми</h2>
+    <h2 class="mt-4">🎬 Top movies</h2>
     <div class="row">
         @foreach (var movie in Model)
         {
             <div class="col-md-4">
                 <div class="card movie-card mb-3" style="width: 18rem;">
                     <div class="card-body">
+                        <img src="@movie.PosterUrl" class="card-img-top mb-3" alt="@movie.Title poster">
                         <h5 class="card-title">@movie.Title</h5>
                         <p class="card-text">@movie.Description</p>
-                        <p class="card-text"><strong>Жанр:</strong> @movie.Genre.Name</p>
+                        <p class="card-text"><strong>Genre:</strong> @movie.Genre.Name</p>
 
-                        <a href="#" class="btn btn-primary">Детайли</a>
+                        <a href="#" class="btn btn-primary">Details</a>
                     </div>
                 </div>
             </div>
