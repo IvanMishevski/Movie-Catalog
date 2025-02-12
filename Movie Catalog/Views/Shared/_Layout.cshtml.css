@@ -8,7 +8,19 @@ a.navbar-brand {
   margin: 10px;
   padding: 10px;
 }
+.navbar .btn {
+    height: 40px;
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+}
 
+.navbar .dropdown-toggle {
+    height: 40px;
+    width: 120px;
+    padding: 10px;
+    font-size: 16px;
+}
 a {
     color: #F0F8FF;
 }
@@ -25,10 +37,10 @@ a {
     border-color: #483D8B;
 }
 .navbar {
-    background-color: #F5F5DC;
+    background-color: #e5e5e5;
 }
 .dropdown-menu {
-    background-color: #483D8B;
+    background-color: #e5e5e5;
 }
 .border-top {
     border-top: 1px solid #e5e5e5;
@@ -53,3 +65,4 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
