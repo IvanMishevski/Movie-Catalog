@@ -40,7 +40,7 @@
                         <p class="card-text">@movie.Description</p>
                         <p class="card-text"><strong>Genre:</strong> @movie.Genre.Name</p>
 
-                        <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary">Details</a>
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-primary">Details</a>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using MovieCatalog.Models;
+using Movie_Catalog.Models;
 
-namespace MovieCatalog.Models
+namespace Movie_Catalog.Models
 {
     public class Movie
     {
@@ -33,7 +33,6 @@ namespace MovieCatalog.Models
         public Director? Director { get; set; }
 
         public ICollection<MovieActor> MovieActors { get; set; } = new List<MovieActor>();
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public Statistic? Statistic { get; set; }
         

@@ -25,17 +25,17 @@ namespace Movie_Catalog.Models
 
 
             modelBuilder.Entity<MovieActor>()
-                .HasKey(pi => new { pi.MovieId, pi.ActorId });
+                .HasKey(ma => new { ma.MovieId, ma.ActorId });
 
             modelBuilder.Entity<MovieActor>()
-                .HasOne(pi => pi.Movie)
-                .WithMany()
+                .HasOne(ma => ma.Movie)
+                .WithMany(m => m.MovieActors)
                 .HasForeignKey(pi => pi.MovieId);
 
             modelBuilder.Entity<MovieActor>()
-                .HasOne(pi => pi.Actor)
-                .WithMany()
-                .HasForeignKey(pi => pi.ActorId);
+                .HasOne(ma => ma.Actor)
+                .WithMany(a => a.MovieActors)
+                .HasForeignKey(ma => ma.ActorId);
 
             //Seed data
 

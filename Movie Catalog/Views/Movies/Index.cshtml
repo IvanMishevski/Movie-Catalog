@@ -1,4 +1,4 @@
-@model IEnumerable<MovieCatalog.Models.Movie>
+@model IEnumerable<Movie_Catalog.Models.Movie>
 
 @{
     ViewData["Title"] = "All Movies";
@@ -33,9 +33,10 @@
             <div class="col-md-4">
                 <div class="card movie-card mb-4" style="width: 18rem;">
                     <div class="card-body">
+                        <img src="@movie.PosterUrl" class="card-img-top mb-3" alt="@movie.Title poster">
                         <h5 class="card-title">@movie.Title</h5>
                         <p class="card-text">@movie.Description</p>
-                        <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary">Details</a>
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-primary">Details</a>
                     </div>
                 </div>
             </div>

@@ -55,6 +55,8 @@
 
             <!-- Search ang log in button -->
             <div class="d-flex ms-auto">
+            @if(ViewData["Title"]?.ToString() == "All Movies")
+            {
                 <form class="d-flex me-3" asp-controller="Home" asp-action="Index" method="get">
                     <!-- Dropdown filter -->
                     <select class="form-select me-2" name="filter" asp-for="@ViewData["CurrentFilter"]">
@@ -67,7 +69,7 @@
 
                     <button class="btn btn-outline-light" type="submit">🔍</button>
                 </form>
-
+            }
                 <a class="btn btn-outline-light" href="/Account/Login">Log in</a>
             <a class="btn btn-outline-light" href="/Account/Login">Registration</a>
             </div>
