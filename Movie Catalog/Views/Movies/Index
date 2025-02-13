@@ -1,0 +1,44 @@
+@model IEnumerable<MovieCatalog.Models.Movie>
+
+@{
+    ViewData["Title"] = "All Movies";
+}
+
+<style>
+    .movie-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background-color: #cce6ff;
+        }
+
+    .display-4 {
+        font-family: 'Garamond', sans-serif;
+    }
+
+    .mt-4 {
+        font-family: 'Garamond', sans-serif;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">All Movies</h1>
+
+    <div class="row mt-4">
+        @foreach (var movie in Model)
+        {
+            <div class="col-md-4">
+                <div class="card movie-card mb-4" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@movie.Title</h5>
+                        <p class="card-text">@movie.Description</p>
+                        <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
