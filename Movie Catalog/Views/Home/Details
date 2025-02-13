@@ -1,0 +1,64 @@
+@model Movie_Catalog.Models.Movie
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<style>
+    body{
+        font-family: 'Garamond', sans-serif;
+    }
+    .movie-details-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        max-width: 900px;
+        margin: 20px auto;
+    }
+
+    .movie-cover {
+        width: 600px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .movie-info {
+        flex: 1;
+    }
+
+    .movie-title {
+        font-size: 28px;
+        font-weight: bold;
+        font-family: 'Garamond', sans-serif;
+    }
+
+    .btn-back {
+        margin-top: 20px;
+    }
+</style>
+<body>
+<div class="movie-details-container">
+    <div>
+        <img src="@Model.PosterUrl" alt="Cover of @Model.Title" class="movie-cover">
+    </div>
+
+    <div class="movie-info">
+        <h1 class="movie-title">@Model.Title</h1>
+        <p><strong>Genre:</strong> @Model.Genre.Name</p>
+        <p><strong>Director:</strong> @Model.Director.Name</p>
+        <p>
+            <strong>Movie Actors:</strong>
+            @string.Join(", ", Model.MovieActors.Select(ma => ma.Actor.Name))
+        </p>
+        <p><strong>Description:</strong> @Model.Description</p>
+        <p><strong>Release Year:</strong> @Model.ReleaseYear</p>
+
+        <a asp-action="Index" class="btn btn-secondary btn-back">Back to Movies</a>
+    </div>
+</div>
+</body>
