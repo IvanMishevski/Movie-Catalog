@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Movie_Catalog.Models
 {
-    public class MovieCatalogContext : DbContext
+    public class MovieCatalogContext : IdentityDbContext
     {
         public MovieCatalogContext(DbContextOptions<MovieCatalogContext> options)
         : base(options)
@@ -15,7 +16,6 @@ namespace Movie_Catalog.Models
         public DbSet<MovieActor> MovieActors { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Statistic> Statistics { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Watchlist> Watchlists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

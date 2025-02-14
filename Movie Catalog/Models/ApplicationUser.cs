@@ -5,7 +5,8 @@ namespace Movie_Catalog.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string? FullName { get; set; }
-        public string? Password { get; set; }
+        public string UserRole { get; set; } = string.Empty;
+
+        
     }
 }

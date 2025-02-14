@@ -65,7 +65,7 @@
                     @foreach (var review in movie.Reviews)
                     {
                         <li>
-                            <strong>@review.User?.Username</strong>:
+                            <strong>@review.User?.UserName</strong>:
                             <span>(@review.Rating/10)</span>
                             <p>@review.ReviewText</p>
                             <small>Added on: @review.CreatedAt.ToShortDateString()</small>

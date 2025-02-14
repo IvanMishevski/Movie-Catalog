@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie_Catalog.Models;
@@ -11,10 +12,17 @@ namespace Movie_Catalog.Controllers
     public class AccountController : Controller
     {
         private readonly MovieCatalogContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(MovieCatalogContext context)
+        public AccountController(
+            MovieCatalogContext context,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Account/Register
@@ -30,24 +38,27 @@ namespace Movie_Catalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                string hashedPassword = HashPassword(model.Password);
-
-                var user = new User
+                var user = new ApplicationUser
                 {
-                    Username = model.Username,
-                    Email = model.Email,
-                    PasswordHash = hashedPassword,
-                    Role = Role.User,
-                    CreatedAt = DateTime.UtcNow
+                    UserName = model.Username,
+                    Email = model.Email
                 };
 
-                // Записване в базата данни
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
+                var result = await _userManager.CreateAsync(user, model.Password);
 
-                // Пренасочване след успешна регистрация
-                return RedirectToAction("Index", "Home");
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    TempData["SuccessMessage"] = "Registration successful! You are now logged in.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
             }
+
 
             return View(model);
         }
@@ -65,59 +76,39 @@ namespace Movie_Catalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Find the user by email
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Email == model.Email);
+                // First find the user by email
+                var user = await _userManager.FindByEmailAsync(model.Email);
 
                 if (user != null)
                 {
-                    // Check the password
-                    if (VerifyPassword(model.Password, user.PasswordHash))
+                    var result = await _signInManager.PasswordSignInAsync(
+                        user.UserName, // Use username instead of email
+                        model.Password,
+                        isPersistent: true, // Enable remember me functionality
+                        lockoutOnFailure: true); // Enable account lockout for security
+
+                    if (result.Succeeded)
                     {
-                        // Save user info in session
-                        HttpContext.Session.SetString("Username", user.Username);
-                        HttpContext.Session.SetString("UserEmail", user.Email);
-
-                        // Set success message
                         TempData["SuccessMessage"] = "Successfully logged in!";
-
-                        // Redirect to the home page
                         return RedirectToAction("Index", "Home");
                     }
-                    else
+                    if (result.IsLockedOut)
                     {
-                        ModelState.AddModelError("", "Invalid password.");
+                        ModelState.AddModelError("", "Account is locked out. Please try again later.");
+                        return View(model);
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "User does not exist.");
-                }
+
+                ModelState.AddModelError("", "Invalid email or password.");
             }
 
             return View(model);
         }
 
-
-
-        private string HashPassword(string password)
+        public async Task<IActionResult> Logout()
         {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
-                foreach (byte b in bytes)
-                {
-                    builder.Append(b.ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
-
-        private bool VerifyPassword(string enteredPassword, string storedHash)
-        {
-            string hashedPassword = HashPassword(enteredPassword);
-            return hashedPassword == storedHash;
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

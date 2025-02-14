@@ -70,8 +70,16 @@
                     <button class="btn btn-outline-light" type="submit">🔍</button>
                 </form>
             }
-                <a class="btn btn-outline-light" href="/Account/Login">Log in</a>
-            <a class="btn btn-outline-light" href="/Account/Login">Registration</a>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-outline-light" href="/Account/Login">Login</a>
+                <a class="btn btn-outline-light" href="/Account/Register">Registration</a>
+            }
+            else
+            {
+                <a class="btn btn-outline-light" asp-controller="Account" asp-action="Logout">Logout</a>
+            }
+             
             </div>
 
     </nav>

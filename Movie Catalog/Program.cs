@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MovieCatalog.Models;
+using Movie_Catalog.Models;
 
 namespace Movie_Catalog
 {
@@ -13,25 +13,30 @@ namespace Movie_Catalog
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Add Session services
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             builder.Services.AddDbContext<MovieCatalogContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Register Identity services
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                // Password policy configuration
-                options.Password.RequireDigit = true; // At least one digit (0-9)
-                options.Password.RequireLowercase = true; // At least one lowercase letter (a-z)
-                options.Password.RequireUppercase = true; // At least one uppercase letter (A-Z)
-                options.Password.RequireNonAlphanumeric = false; // At least one non-alphanumeric character (e.g., !@#$%)
-                options.Password.RequiredLength = 8; // Minimum length of 8 characters
-                options.Password.RequiredUniqueChars = 1; // At least one unique character
-            }
-                )
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+            })
                 .AddEntityFrameworkStores<MovieCatalogContext>()
                 .AddDefaultTokenProviders();
-
-            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -39,20 +44,22 @@ namespace Movie_Catalog
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapStaticAssets();
+            // Use Session middleware
+            app.UseSession();
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
