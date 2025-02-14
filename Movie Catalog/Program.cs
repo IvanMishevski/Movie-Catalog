@@ -1,5 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Movie_Catalog.Models;
+using MovieCatalog.Models;
 
 namespace Movie_Catalog
 {
@@ -12,10 +13,25 @@ namespace Movie_Catalog
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Add inside builder.Services section
             builder.Services.AddDbContext<MovieCatalogContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            // Register Identity services
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                // Password policy configuration
+                options.Password.RequireDigit = true; // At least one digit (0-9)
+                options.Password.RequireLowercase = true; // At least one lowercase letter (a-z)
+                options.Password.RequireUppercase = true; // At least one uppercase letter (A-Z)
+                options.Password.RequireNonAlphanumeric = false; // At least one non-alphanumeric character (e.g., !@#$%)
+                options.Password.RequiredLength = 8; // Minimum length of 8 characters
+                options.Password.RequiredUniqueChars = 1; // At least one unique character
+            }
+                )
+                .AddEntityFrameworkStores<MovieCatalogContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -28,17 +44,20 @@ namespace Movie_Catalog
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthorization();
 
+            app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}")
+                .WithStaticAssets();
 
             app.Run();
         }
+       
+
+      
     }
 }
