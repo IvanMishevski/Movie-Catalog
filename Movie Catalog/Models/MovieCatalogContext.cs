@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Movie_Catalog.Models
@@ -122,8 +123,6 @@ namespace Movie_Catalog.Models
             new MovieActor { MovieId = 5, ActorId = 2 }, // Nightfall - Scarlett Johansson
             new MovieActor { MovieId = 5, ActorId = 3 }  // Nightfall - Dwayne Johnson
             );
-
-
         }
     }
 }

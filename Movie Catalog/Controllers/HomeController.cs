@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie_Catalog.Models;
@@ -8,12 +9,16 @@ namespace Movie_Catalog.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly MovieCatalogContext _context;  
+        private readonly MovieCatalogContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+ 
 
-        public HomeController(ILogger<HomeController> logger, MovieCatalogContext context)
+        public HomeController(ILogger<HomeController> logger, MovieCatalogContext context, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
+            
         }
 
         public IActionResult Index()
@@ -39,6 +44,7 @@ namespace Movie_Catalog.Controllers
             .FirstOrDefault();
             return View("Details",movie);
         }
+        
         public IActionResult Privacy()
         {
             return View();

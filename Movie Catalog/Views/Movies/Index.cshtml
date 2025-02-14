@@ -1,5 +1,6 @@
 @model IEnumerable<Movie_Catalog.Models.Movie>
 
+
 @{
     ViewData["Title"] = "All Movies";
 }
@@ -26,7 +27,7 @@
 
 <<div class="text-center">
     <h1 class="display-4">All Movies</h1>
-    <a href="@Url.Action("Create", "Movies")" class="btn btn-success mb-3">Add New Movie</a>
+    <a asp-controller="Movies" asp-action="Create" class="btn btn-success mb-3">Add New Movie</a>
 
     <div class="row mt-4">
         @foreach (var movie in Model)
@@ -34,11 +35,19 @@
             <div class="col-md-4">
                 <div class="card movie-card mb-4" style="width: 18rem;">
                     <div class="card-body">
+                        <img src="@movie.PosterUrl" class="card-img-top mb-3" alt="@movie.Title poster">
                         <h5 class="card-title">@movie.Title</h5>
                         <p class="card-text">@movie.Description</p>
-                        <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary">Details</a>
-                        <a href="@Url.Action("Edit", "Movies", new { id = movie.Id })" class="btn btn-warning">Edit</a>
-                        <a href="@Url.Action("Delete", "Movies", new { id = movie.Id })" class="btn btn-danger">Delete</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-primary">Details</a>
+                            @if (ViewData["UserRole"]?.ToString()=="Admin")
+                            {                               
+                            <a asp-controller="Movies" asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-warning">Edit</a>
+                            <a asp-controller="Movies" asp-action="Delete" asp-route-id="@movie.Id" class="btn btn-danger">Delete</a>
+                            }
+                        }
+                       
                     </div>
                 </div>
             </div>
