@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace MovieCatalog.Models
+namespace Movie_Catalog.Models
 
 {
     public class ApplicationUser : IdentityUser
