@@ -1,29 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Movie_Catalog.Models
 {
     public class User
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-
+        [Required]
         [MaxLength(50)]
-        [Required]
-        public string? Username { get; set; }
+        public required string Username { get; set; }
 
+        [Required]
         [MaxLength(100)]
-        [Required]
-        public string? Email { get; set; }
-
-        [MaxLength(225)]
-        [Required]
-        public string? Password { get; set; }
+        [EmailAddress]
+        public required string Email { get; set; }
 
         [Required]
-        public Role Role { get; set; }
+        [MaxLength(255)]
+        public required string PasswordHash { get; set; } // Store hashed password
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required]
+        public Role Role { get; set; } = Role.User; // Default role
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 
