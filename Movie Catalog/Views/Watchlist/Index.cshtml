@@ -1,0 +1,79 @@
+@model List<MovieCatalog.Models.Movie>
+
+@{
+    ViewData["Title"] = "My Watchlist";
+}
+
+<style>
+    body {
+        font-family: 'Garamond', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .watchlist-container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .movie-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .movie-poster {
+        width: 100px;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .movie-info {
+        flex: 1;
+    }
+
+    .btn-remove {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-add {
+        background-color: #28a745;
+        color: white;
+    }
+</style>
+
+<div class="watchlist-container">
+    <h1>My Watchlist</h1>
+
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var movie in Model)
+        {
+            <div class="movie-item">
+                <img src="@movie.PosterUrl" alt="@movie.Title" class="movie-poster">
+                <div class="movie-info">
+                    <h3>@movie.Title</h3>
+                    <p><strong>Genre:</strong> @movie.Genre.Name</p>
+                    <p><strong>Director:</strong> @movie.Director.Name</p>
+                    <form asp-action="RemoveFromWatchlist" asp-controller="Watchlist" method="post">
+                        <input type="hidden" name="movieId" value="@movie.Id" />
+                        <button type="submit" class="btn btn-remove">Remove</button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p style="text-align: center; font-size: 18px; color: #777;">Your watchlist is empty.</p>
+    }
+
+    <a asp-action="Index" asp-controller="Movies" class="btn btn-secondary">Back to Movies</a>
+</div>
