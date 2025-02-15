@@ -104,10 +104,8 @@ namespace Movie_Catalog.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateMovie(Movie movie, int[] selectedActors)
+        public IActionResult CreateMovie(Movie movie, int[] selectedActorsIds)
         {
-            ModelState.Remove("Genre");
-            ModelState.Remove("Director");
 
             if (ModelState.IsValid)
             {
@@ -119,9 +117,9 @@ namespace Movie_Catalog.Controllers
                     movie.Genre = genre;
                     movie.Director = director;
 
-                    if (selectedActors != null && selectedActors.Length > 0)
+                    if (selectedActorsIds != null && selectedActorsIds.Length > 0)
                     {
-                        foreach (var actorId in selectedActors)
+                        foreach (var actorId in selectedActorsIds)
                         {
                             movie.MovieActors.Add(new MovieActor
                             {
