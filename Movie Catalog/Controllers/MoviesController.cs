@@ -187,5 +187,39 @@ namespace Movie_Catalog.Controllers
             ViewBag.Actors = new SelectList(_context.Actors, "Id", "Name");
             return View(movie);
         }
+        [HttpPost]
+        public async Task<IActionResult> SubmitReview(int id, string reviewText, decimal rating)
+        {
+            var movies = await _context.Movies.ToListAsync();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            var review = new Review
+            {
+                MovieId = id,
+                UserId = user.Id,
+                ReviewText = reviewText,
+                Rating = rating
+            };
+
+            _context.Reviews.Add(review);
+            var movieStats = await _context.Statistics
+        .FirstOrDefaultAsync(s => s.MovieId == id);
+
+            if (movieStats != null)
+            {
+                var allReviews = await _context.Reviews
+                    .Where(r => r.MovieId == id)
+                    .ToListAsync();
+
+                movieStats.AvgRating = (allReviews.Sum(r => r.Rating) + rating) / (allReviews.Count + 1);
+            }
+
+
+            await _context.SaveChangesAsync();
+            return View("Index", movies);
+        }
     }
 }

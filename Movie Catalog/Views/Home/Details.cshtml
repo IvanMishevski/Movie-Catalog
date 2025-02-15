@@ -1,47 +1,155 @@
 @model Movie_Catalog.Models.Movie
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Title;
 }
 
 <style>
     body {
-        font-family: 'Garamond', sans-serif;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        color: #333;
     }
 
     .movie-details-container {
         display: flex;
-        align-items: flex-start;
-        gap: 20px;
+        flex-direction: row;
+        gap: 30px;
+        justify-content: center;
+        margin: 30px;
         padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 10px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        max-width: 900px;
-        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .movie-cover {
-        width: 600px;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .movie-info {
         flex: 1;
+        max-width: 600px;
     }
 
     .movie-title {
-        font-size: 28px;
+        font-size: 2rem;
         font-weight: bold;
-        font-family: 'Garamond', sans-serif;
+        color: #333;
+        margin-bottom: 20px;
     }
 
-    .btn-back {
-        margin-top: 20px;
+    .movie-info p {
+        margin: 8px 0;
+        font-size: 1.1rem;
     }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        margin-top: 10px;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .review-section {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        .review-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+    .review-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+        .review-container textarea,
+        .review-container select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .review-container textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .review-container select {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+            .review-container select:focus,
+            .review-container textarea:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+
+    .btn-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .review-section button {
+        padding: 12px 24px;
+        font-size: 1rem;
+        border-radius: 5px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .review-section button:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
 </style>
+
 <body>
     <div class="movie-details-container">
         <div>
@@ -58,15 +166,42 @@
             </p>
             <p><strong>Description:</strong> @Model.Description</p>
             <p><strong>Release Year:</strong> @Model.ReleaseYear</p>
-            @if (!ViewBag.IsInWatchlist)
-            {
-                <form asp-controller="Watchlist" asp-action="AddToWatchlist" method="post">
-                    <input type="hidden" name="movieId" value="@Model.Id" />
-                    <button type="submit" class="btn btn-success">Add to Watchlist</button>
-                </form>
-            }
-            
-            <a asp-action="Index" class="btn btn-secondary btn-back">Back to Movies</a>
+
+            <form asp-controller="Watchlist" asp-action="AddToWatchlist" method="post">
+                <input type="hidden" name="movieId" value="@Model.Id" />
+                <button type="submit" class="btn btn-success">Add to Watchlist</button>
+            </form>
+
+            <a asp-action="Index" class="btn btn-secondary">Back to Movies</a>
         </div>
     </div>
+
+    <!-- Add Review and Rating Section -->
+    <div class="review-section">
+        <h3>Leave a Review</h3>
+        <form method="post" asp-action="SubmitReview" asp-controller="Movies" asp-route-id="@Model.Id">
+            <div class="review-container">
+                <textarea name="reviewText" placeholder="Write your review here..."></textarea>
+
+                <label for="Rating">Rating:</label>
+                <select name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn btn-success">Submit Review</button>
+            </div>
+        </form>
+    </div>
+
 </body>
