@@ -1,28 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model IEnumerable<Movie_Catalog.Models.Movie>
+@model IEnumerable<MovieCatalog.Models.Movie>
 
 @{
-    ViewData["Title"] = "Статистики и ревюта на филми";
+    ViewData["Title"] = "Movies statistics and reviews";
 }
+
 <style>
     .movie-card {
-        border: 1px solid #ddd;
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        background: #ccccff;
-        transition: background-color 0.3s ease;
+        border: 1px solid #ccc; 
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        background: #f4f4f4; 
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
         .movie-card:hover {
-            background: #b3b3ff; /* Светло синьо избледняване */
+            background: #e0e0e0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         .movie-card h3 {
             margin: 0;
-            color: #333;
+            color: #333; 
         }
 
         .movie-card ul {
@@ -31,53 +33,81 @@
         }
 
         .movie-card li {
-            background: #fff;
+            background: #ffffff; 
             padding: 10px;
             margin-top: 5px;
             border-radius: 5px;
+            border: 1px solid #ddd; 
         }
+
+    .movie-details-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+        background-color: #f9f9f9; 
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+        margin: 20px 0;
+    }
+
+    .movie-cover {
+        width: 200px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
     h1 {
         text-align: center;
-        margin: 20px;
+        margin: 40px;
+        color: #444; 
     }
 
     body {
         font-family: 'Garamond', sans-serif;
+        background-color: #eaeaea; 
+        padding: 20px;
     }
-
 </style>
+
+
 <body>
-    <h1><strong>Movies statistics and reviews</strong></h1>
+    <h1><strong>Movies Statistics and Reviews</strong></h1>
 
     @foreach (var movie in Model)
     {
         <div class="movie-card">
-            <h3>@movie.Title</h3>
-            <br>
-            <p><strong>Avarage rating:</strong> @movie.Statistic?.AvgRating</p>
-            <p><strong>Views:</strong> @movie.Statistic?.Views</p>
+            <div class="movie-details-container">
+                <img src="@movie.PosterUrl" alt="Cover of @movie.Title" class="movie-cover">
+                <div>
+                    <h3>@movie.Title</h3>
+                    <p><strong>Average rating:</strong> @movie.Statistic?.AvgRating</p>
+                    <p><strong>Views:</strong> @movie.Statistic?.Views</p>
 
-            <h4>Reviews:</h4>
-            @if (movie.Reviews != null && movie.Reviews.Any())
-            {
-                <ul>
-                    @foreach (var review in movie.Reviews)
+                    <h4>Reviews:</h4>
+                    @if (movie.Reviews != null && movie.Reviews.Any())
                     {
-                        <li>
-                            <strong>@review.User?.UserName</strong>:
-                            <span>(@review.Rating/10)</span>
-                            <p>@review.ReviewText</p>
-                            <small>Added on: @review.CreatedAt.ToShortDateString()</small>
-                        </li>
+                        <ul>
+                            @foreach (var review in movie.Reviews)
+                            {
+                                <li>
+                                    <strong>@review.User?.UserName</strong>:
+                                    <span>(@review.Rating/10)</span>
+                                    <p>@review.ReviewText</p>
+                                    <small>Added on: @review.CreatedAt.ToShortDateString()</small>
+                                </li>
+                            }
+                        </ul>
                     }
-                </ul>
-            }
-            else
-            {
-                <p>Няма ревюта за този филм.</p>
-            }
+                    else
+                    {
+                        <p>No reviews for this movie.</p>
+                    }
+                </div>
+            </div>
         </div>
     }
 </body>
-
