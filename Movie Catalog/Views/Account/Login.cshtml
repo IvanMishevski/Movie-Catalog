@@ -4,30 +4,157 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="login-container">
+    <div class="login-card">
+        <h2 class="login-title">Log in</h2>
 
-<div class="row">
-    <div class="col-md-4">
         <form asp-action="Login" method="post">
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label for="Email">Username or Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" type="password" class="form-control" />
+                <label for="Password">Password</label>
+                <div class="password-wrapper">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" id="passwordInput" />
+                    <span class="toggle-password" onclick="togglePassword()">👁️ Show</span>
+                </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+
             <div class="form-group form-check">
                 <input asp-for="RememberMe" class="form-check-input" />
                 <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+
+            <button type="submit" class="btn btn-primary btn-login">Log in</button>
+
         </form>
     </div>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById("passwordInput");
+            var toggleText = document.querySelector(".toggle-password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleText.textContent = "🙈 Hide";
+            } else {
+                passwordInput.type = "password";
+                toggleText.textContent = "👁️ Show";
+            }
+        }
+    </script>
 }
+
+<style>
+    body {
+        background-color: #f6f6f4;
+        font-family: 'Garamond', sans-serif;
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        align-items: center;
+        height: 100vh;
+        padding-top: 50px;
+    }
+
+    .login-card {
+        background: #fff;
+        padding: 50px;
+        margin: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        width: 900px;
+        text-align: center;
+        margin-top: -300px;
+    }
+
+    .login-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .login-subtext {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        text-align: left;
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 14px;
+        font-size: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .password-wrapper {
+        position: relative;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #007bff;
+        font-size: 14px;
+    }
+
+    .btn-login {
+        width: 100%;
+        background-color: #66ccff;
+        border: none;
+        padding: 16px;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out;
+    }
+
+        .btn-login:hover {
+            background-color: #005a66;
+        }
+
+    .form-check {
+        text-align: left;
+        margin-bottom: 15px;
+    }
+
+    .login-links {
+        margin-top: 15px;
+    }
+
+        .login-links a {
+            display: block;
+            font-size: 14px;
+            color: #007c89;
+            text-decoration: none;
+        }
+
+            .login-links a:hover {
+                text-decoration: underline;
+            }
+</style>
+
