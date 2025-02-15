@@ -54,65 +54,29 @@ namespace Movie_Catalog.Controllers
 
         public IActionResult Edit(int id)
         {
-            ViewBag.Genres = new SelectList(_context.Genres, "Id", "Name");
-            ViewBag.Directors = new SelectList(_context.Directors, "DirectorId", "Name");
-            ViewBag.Actors = new SelectList(_context.Actors, "Id", "Name");
             var movie = _context.Movies.Where(m => m.Id == id).FirstOrDefault();
-            ViewBag.SelectedActors = movie.MovieActors.Select(ma => ma.ActorId).ToList();
             return View(movie);
 
         }
         [HttpPost]
-        public IActionResult Edit(int id, Movie movie, int[] selectedActorsIds)
+        public IActionResult Edit(int id, Movie movie)
         {
-            if (ModelState.IsValid)
+            if (id != movie.Id)
             {
-                if (id != movie.Id)
-                {
-                    return NotFound();
-                }
-
-                var existingMovie = _context.Movies
-                .Include(m => m.MovieActors)
-                .Include(m => m.Statistic)
-                .FirstOrDefault(m => m.Id == id);
-                if (existingMovie == null)
-                {
-                    return NotFound();
-                }
-
-                existingMovie.Title = movie.Title;
-                existingMovie.Description = movie.Description;
-                existingMovie.ReleaseYear = movie.ReleaseYear;
-                existingMovie.GenreId = movie.GenreId;
-                existingMovie.DirectorId = movie.DirectorId;
-                existingMovie.PosterUrl = movie.PosterUrl;
-                existingMovie.Statistic = movie.Statistic;
-
-                existingMovie.MovieActors.Clear();
-
-                if (selectedActorsIds != null && selectedActorsIds.Length > 0)
-                {
-                    foreach (var actorId in selectedActorsIds)
-                    {
-                        existingMovie.MovieActors.Add(new MovieActor
-                        {
-                            MovieId = existingMovie.Id,
-                            ActorId = actorId
-                        });
-                    }
-                }
-                _context.Update(existingMovie);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", "Movies");
+                return NotFound();
             }
-            ViewBag.Genres = new SelectList(_context.Genres, "Id", "Name");
-            ViewBag.Directors = new SelectList(_context.Directors, "DirectorId", "Name");
-            ViewBag.Actors = new SelectList(_context.Actors, "Id", "Name");
-            return View(movie); 
 
+            var existingMovie = _context.Movies.Find(id);
+            if (existingMovie == null)
+            {
+                return NotFound();
+            }
 
+            existingMovie.Title = movie.Title;
+            existingMovie.Description = movie.Description;
+
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
         }
         public IActionResult Delete(int id)
         {
