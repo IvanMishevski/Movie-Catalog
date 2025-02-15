@@ -6,8 +6,8 @@
 <style>
     body {
         font-family: 'Garamond', sans-serif;
-        background-color: #fff2e6; 
-        color: #333; 
+        background-color: #fff2e6;
+        color: #333;
         margin: 0;
         padding: 0;
     }
@@ -15,13 +15,13 @@
     h2 {
         text-align: center;
         font-size: 2.5rem;
-        color: #FF5722; 
+        color: #FF5722;
         margin-bottom: 20px;
     }
 
     .card {
-        background-color: #FFF; 
-        border: 1px solid #DDD; 
+        background-color: #FFF;
+        border: 1px solid #DDD;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -38,24 +38,24 @@
 
     .card-title {
         font-size: 1.8rem;
-        color: #FF5722; 
+        color: #FF5722;
         margin-bottom: 15px;
     }
 
-   
+
     .form-group {
         margin-bottom: 20px;
     }
 
     label {
         font-size: 1.1rem;
-        color: #FF5722; 
+        color: #FF5722;
     }
 
     input.form-control, textarea.form-control {
-        background-color: #FFF; 
-        color: #333; 
-        border: 1px solid #DDD; 
+        background-color: #FFF;
+        color: #333;
+        border: 1px solid #DDD;
         border-radius: 5px;
         padding: 12px;
         font-size: 1rem;
@@ -64,7 +64,7 @@
 
         input.form-control:focus, textarea.form-control:focus {
             border-color: #FF5722;
-            box-shadow: 0 0 8px rgba(255, 87, 34, 0.6); 
+            box-shadow: 0 0 8px rgba(255, 87, 34, 0.6);
             outline: none;
         }
 
@@ -128,40 +128,48 @@
     }
 </style>
 <body>
-<h2>Edit Movie</h2>
+    <h2>Edit Movie</h2>
 
-<div class="card movie-card mb-4 p-3">
-    <div class="card-body">
-        <h5 class="card-title">Editing: @Model.Title</h5>
-        <form asp-action="Edit">
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Genre.Name" class="control-label">Genre</label>
-                <input asp-for="Genre.Name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Director.Name" class="control-label">Director</label>
-                <input asp-for="Director.Name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="MovieActors" class="control-label">Actors</label>
-                <input asp-for="MovieActors" class="form-control" placeholder="Separate actors with commas" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReleaseYear" class="control-label">Release Year</label>
-                <input asp-for="ReleaseYear" class="form-control" />
-            </div>
-            <button type="submit" class="btn btn-warning">Save Changes</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-        </form>
+    <div class="card movie-card mb-4 p-3">
+        <div class="card-body">
+            <h5 class="card-title">Editing: @Model.Title</h5>
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="GenreId" class="control-label">Genre</label>
+                    <select asp-for="GenreId" class="form-control" asp-items="ViewBag.Genres"></select>
+                    <span asp-validation-for="GenreId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DirectorId" class="control-label">Director</label>
+                    <select asp-for="DirectorId" class="form-control" asp-items="ViewBag.Directors"></select>
+                    <span asp-validation-for="DirectorId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Actors</label>
+                    <select name="selectedActorsIds" class="form-control" asp-items="ViewBag.Actors" multiple></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReleaseYear" class="control-label">Release Year</label>
+                    <input asp-for="ReleaseYear" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PosterUrl" class="control-label">Movie Poster</label>
+                    <input asp-for="PosterUrl" class="form-control" type="string" />
+                    <span asp-validation-for="PosterUrl" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-warning">Save Changes</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
     </div>
-</div>
 </body>
