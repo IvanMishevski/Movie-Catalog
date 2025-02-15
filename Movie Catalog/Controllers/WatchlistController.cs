@@ -50,6 +50,7 @@ namespace Movie_Catalog.Controllers
             .Include(m => m.Movie)
             .ThenInclude(m => m.Director)
             .ToList();
+
             
             return View("Index", watchlistItems);
         }

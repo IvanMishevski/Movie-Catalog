@@ -165,13 +165,16 @@
             </p>
             <p><strong>Description:</strong> @Model.Description</p>
             <p><strong>Release Year:</strong> @Model.ReleaseYear</p>
+            @if (!ViewBag.IsInWatchlist)
+            {
+                <form asp-controller="Watchlist" asp-action="AddToWatchlist" method="post">
+                    <input type="hidden" name="movieId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-success">Add to Watchlist</button>
+                </form>
+            }
+            
 
-            <form asp-controller="Watchlist" asp-action="AddToWatchlist" method="post">
-                <input type="hidden" name="movieId" value="@Model.Id" />
-                <button type="submit" class="btn btn-success">Add to Watchlist</button>
-            </form>
-
-            <a asp-action="Index" class="btn btn-secondary">Back to Movies</a>
+            <a asp-controller="Movies" asp-action="Index" class="btn btn-secondary">Back to Movies</a>
         </div>
     </div>
 

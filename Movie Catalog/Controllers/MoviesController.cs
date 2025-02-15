@@ -87,7 +87,7 @@ namespace Movie_Catalog.Controllers
                 existingMovie.GenreId = movie.GenreId;
                 existingMovie.DirectorId = movie.DirectorId;
                 existingMovie.PosterUrl = movie.PosterUrl;
-                existingMovie.Statistic = movie.Statistic;
+                
 
                 existingMovie.MovieActors.Clear();
 
@@ -177,7 +177,9 @@ namespace Movie_Catalog.Controllers
 
                     _context.Statistics.Add(statistics);
                     _context.SaveChanges();
-
+                    ViewBag.Genres = new SelectList(_context.Genres, "Id", "Name");
+                    ViewBag.Directors = new SelectList(_context.Directors, "DirectorId", "Name");
+                    ViewBag.Actors = new SelectList(_context.Actors, "Id", "Name");
                     return RedirectToAction("Index", "Movies");
                 }
             }
