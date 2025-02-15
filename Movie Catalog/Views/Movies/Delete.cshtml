@@ -4,12 +4,125 @@
     ViewData["Title"] = "Delete Movie";
 }
 
-<h2>Are you sure you want to delete this movie?</h2>
-<p><strong>@Model.Title</strong></p>
-<p>@Model.Description</p>
+<style>
+    body {
+        font-family: 'Garamond', sans-serif;
+        background-color: #ffcccc;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
 
-<form asp-action="DeleteConfirmed">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+    h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        color: #ff4d4d;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background-color: #FFF;
+        border: 1px solid #DDD;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-body {
+        padding: 30px;
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        color: #FF5722;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 1.1rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    button.btn-danger {
+        background-color: #FF5722;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        button.btn-danger:hover {
+            background-color: #D84B1C;
+            transform: translateY(-3px);
+        }
+
+    a.btn-secondary {
+        background-color: #777;
+        color: #FFF;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        a.btn-secondary:hover {
+            background-color: #555;
+            transform: translateY(-3px);
+        }
+
+    * {
+        transition: all 0.3s ease;
+    }
+
+    .card-body form {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+</style>
+
+<body>
+    <h2>Delete Movie</h2>
+
+    <div class="card movie-card mb-4 p-3">
+        <div class="card-body">
+            <h5 class="card-title">Are you sure you want to delete the movie: @Model.Title?</h5>
+            <p><strong>Title:</strong> @Model.Title</p>
+            <p><strong>Description:</strong> @Model.Description</p>
+            <p><strong>Release Year:</strong> @Model.ReleaseYear</p>
+
+            <form asp-action="DeleteConfirmed">
+                <input type="hidden" asp-for="Id" />
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".card").classList.add("show");
+    });
+</script>
