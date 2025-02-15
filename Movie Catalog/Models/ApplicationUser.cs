@@ -7,6 +7,6 @@ namespace Movie_Catalog.Models
     {
         public string UserRole { get; set; } = "PublicUser";
 
-        
+
     }
 }

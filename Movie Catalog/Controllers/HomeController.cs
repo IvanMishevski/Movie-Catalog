@@ -42,7 +42,14 @@ namespace Movie_Catalog.Controllers
             .ThenInclude(ma => ma.Actor)
             .Where(m => m.Id == id)
             .FirstOrDefault();
-            return View("Details",movie);
+
+            var currentUserId = _userManager.GetUserId(User);
+            var isInWatchlist = _context.Watchlists
+                .Any(w => w.MovieId == id && w.UserId == currentUserId);
+
+            ViewBag.IsInWatchlist = isInWatchlist;
+
+            return View(movie);
         }
         
         public IActionResult Privacy()

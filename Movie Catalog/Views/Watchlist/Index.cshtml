@@ -1,4 +1,4 @@
-@model List<MovieCatalog.Models.Movie>
+@model List<Movie_Catalog.Models.Watchlist>
 
 @{
     ViewData["Title"] = "My Watchlist";
@@ -54,16 +54,16 @@
 
     @if (Model != null && Model.Any())
     {
-        @foreach (var movie in Model)
+        @foreach (var watchlist in Model)
         {
             <div class="movie-item">
-                <img src="@movie.PosterUrl" alt="@movie.Title" class="movie-poster">
+                <img src="@watchlist.Movie.PosterUrl" alt="@watchlist.Movie.Title" class="movie-poster">
                 <div class="movie-info">
-                    <h3>@movie.Title</h3>
-                    <p><strong>Genre:</strong> @movie.Genre.Name</p>
-                    <p><strong>Director:</strong> @movie.Director.Name</p>
+                    <h3>@watchlist.Movie.Title</h3>
+                    <p><strong>Genre:</strong> @watchlist.Movie.Genre.Name</p>
+                    <p><strong>Director:</strong> @watchlist.Movie.Director.Name</p>
                     <form asp-action="RemoveFromWatchlist" asp-controller="Watchlist" method="post">
-                        <input type="hidden" name="movieId" value="@movie.Id" />
+                        <input type="hidden" name="movieId" value="@watchlist.Movie.Id" />
                         <button type="submit" class="btn btn-remove">Remove</button>
                     </form>
                 </div>
