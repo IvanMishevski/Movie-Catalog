@@ -167,7 +167,7 @@
             <p><strong>Description:</strong> @Model.Description</p>
             <p><strong>Release Year:</strong> @Model.ReleaseYear</p>
 
-            @if (!ViewBag.IsInWatchlist)
+            @if (!ViewBag.IsInWatchlist && User.Identity.IsAuthenticated)
             {
                 <form asp-controller="Watchlist" asp-action="AddToWatchlist" method="post">
                     <input type="hidden" name="movieId" value="@Model.Id" />
@@ -181,31 +181,34 @@
     </div>
 
     <!-- Add Review and Rating Section -->
-    <div class="review-section">
-        <h3>Leave a Review</h3>
-        <form method="post" asp-action="SubmitReview" asp-controller="Movies" asp-route-id="@Model.Id">
-            <div class="review-container">
-                <textarea name="reviewText" placeholder="Write your review here..."></textarea>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="review-section">
+            <h3>Leave a Review</h3>
+            <form method="post" asp-action="SubmitReview" asp-controller="Movies" asp-route-id="@Model.Id">
+                <div class="review-container">
+                    <textarea name="ReviewText" placeholder="Write your review here..."></textarea>
 
-                <label for="Rating">Rating:</label>
-                <select name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
+                    <label for="Rating">Rating:</label>
+                    <select name="Rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
 
-            <div class="btn-container">
-                <button type="submit" class="btn btn-success">Submit Review</button>
-            </div>
-        </form>
-    </div>
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-success">Submit Review</button>
+                </div>
+            </form>
+        </div>
+    }
 
 </body>

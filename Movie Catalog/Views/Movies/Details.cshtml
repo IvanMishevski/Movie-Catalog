@@ -165,7 +165,7 @@
             </p>
             <p><strong>Description:</strong> @Model.Description</p>
             <p><strong>Release Year:</strong> @Model.ReleaseYear</p>
-            @if (!ViewBag.IsInWatchlist)
+            @if (!ViewBag.IsInWatchlist && User.Identity.IsAuthenticated)
             {
                 <form asp-controller="Watchlist" asp-action="AddToWatchlist" method="post">
                     <input type="hidden" name="movieId" value="@Model.Id" />
@@ -179,9 +179,11 @@
     </div>
 
     <!-- Add Review and Rating Section -->
+    @if (User.Identity.IsAuthenticated)
+    {
     <div class="review-section">
         <h3>Leave a Review</h3>
-        <form method="post" asp-action="SubmitReview" asp-controller="Movies">
+            <form method="post" asp-action="SubmitReview" asp-controller="Movies" asp-route-id="@Model.Id">
             <div class="review-container">
                 <textarea name="ReviewText" placeholder="Write your review here..."></textarea>
 
@@ -205,5 +207,5 @@
             </div>
         </form>
     </div>
-
+    }
 </body>
