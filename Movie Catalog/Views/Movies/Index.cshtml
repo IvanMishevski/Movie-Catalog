@@ -59,9 +59,13 @@
                         </div>
                         <h5 class="card-title">@movie.Title</h5>
                         <p class="card-text">@movie.Description</p>
-                        <a href="@Url.Action("Details", "Movies", new { id = movie.Id })" class="btn btn-primary">Details</a>
-                        <a href="@Url.Action("Edit", "Movies", new { id = movie.Id })" class="btn btn-warning">Edit</a>
-                        <a href="@Url.Action("Delete", "Movies", new { id = movie.Id })" class="btn btn-danger">Delete</a>
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-primary">Details</a>
+                        @if (ViewData["UserRole"]?.ToString() == "Admin")
+                        {
+                            <a asp-controller="Movies" asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-warning">Edit</a>
+                            <a asp-controller="Movies" asp-action="Delete" asp-route-id="@movie.Id" class="btn btn-danger">Delete</a>
+                        }
+                        
                     </div>
                 </div>
             </div>
