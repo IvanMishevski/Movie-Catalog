@@ -1,10 +1,13 @@
 @model IEnumerable<Movie_Catalog.Models.Movie>
 
 @{
+    // Set the page title
     ViewData["Title"] = "All Movies";
 }
 
+<!-- Movie card styling and animations -->
 <style>
+    /* Card hover effects and transitions */
     .movie-card {
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
     }
@@ -15,6 +18,7 @@
             background-color: #cce6ff;
         }
 
+    /* Typography settings */
     .display-4 {
         font-family: 'Garamond', sans-serif;
     }
@@ -23,6 +27,7 @@
         font-family: 'Garamond', sans-serif;
     }
 
+    /* Movie details container layout */
     .movie-details-container {
         display: flex;
         align-items: flex-start;
@@ -35,40 +40,50 @@
         margin: 20px auto;
     }
 
+    /* Movie poster image styling */
     .movie-cover {
-        max-width: 100%; 
-        height: 300px; 
-        object-fit: cover; 
+        max-width: 100%;
+        height: 300px;
+        object-fit: cover;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 </style>
 
+<!-- Main content container -->
 <div class="text-center">
     <h1 class="display-4">All Movies</h1>
+
+    <!-- Admin-only add movie button -->
     @if (ViewData["UserRole"]?.ToString() == "Admin")
     {
-    <a href="@Url.Action("Create", "Movies")" class="btn btn-success mb-3">Add New Movie</a>
+        <a href="@Url.Action("Create", "Movies")" class="btn btn-success mb-3">Add New Movie</a>
     }
 
+    <!-- Movie grid -->
     <div class="row mt-4">
         @foreach (var movie in Model)
         {
+            <!-- Individual movie card -->
             <div class="col-md-4">
                 <div class="card movie-card mb-4" style="width: 18rem;">
                     <div class="card-body">
+                        <!-- Movie poster and details -->
                         <div class="movie-details-container">
                             <img src="@movie.PosterUrl" alt="Cover of @movie.Title" class="movie-cover">
                         </div>
                         <h5 class="card-title">@movie.Title</h5>
                         <p class="card-text">@movie.Description</p>
+
+                        <!-- Action buttons -->
                         <a asp-controller="Home" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-primary">Details</a>
+
+                        <!-- Admin-only edit and delete buttons -->
                         @if (ViewData["UserRole"]?.ToString() == "Admin")
                         {
                             <a asp-controller="Movies" asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-warning">Edit</a>
                             <a asp-controller="Movies" asp-action="Delete" asp-route-id="@movie.Id" class="btn btn-danger">Delete</a>
                         }
-                        
                     </div>
                 </div>
             </div>

@@ -1,20 +1,26 @@
 @model Movie_Catalog.Models.LoginViewModel
 
 @{
+    // Set the page title
     ViewData["Title"] = "Login";
 }
 
+<!-- Main login container -->
 <div class="login-container">
+    <!-- Login card with form -->
     <div class="login-card">
         <h2 class="login-title">Log in</h2>
 
+        <!-- Login form with anti-forgery token -->
         <form asp-action="Login" method="post">
+            <!-- Email input group -->
             <div class="form-group">
                 <label for="Email">Username or Email</label>
                 <input asp-for="Email" class="form-control" placeholder="Enter your email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
+            <!-- Password input group with show/hide toggle -->
             <div class="form-group">
                 <label for="Password">Password</label>
                 <div class="password-wrapper">
@@ -24,21 +30,25 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
+            <!-- Remember me checkbox -->
             <div class="form-group form-check">
                 <input asp-for="RememberMe" class="form-check-input" />
                 <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
             </div>
 
+            <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-login">Log in</button>
-
         </form>
     </div>
 </div>
 
+<!-- Scripts section -->
 @section Scripts {
+    <!-- Validation scripts partial -->
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <!-- Password toggle functionality -->
     <script>
         function togglePassword() {
             var passwordInput = document.getElementById("passwordInput");
@@ -54,12 +64,15 @@
     </script>
 }
 
+<!-- Styles section -->
 <style>
+    /* Base body styling */
     body {
         background-color: #f6f6f4;
         font-family: 'Garamond', sans-serif;
     }
 
+    /* Login container layout */
     .login-container {
         display: flex;
         justify-content: center;
@@ -69,6 +82,7 @@
         padding-top: 50px;
     }
 
+    /* Login card styling */
     .login-card {
         background: #fff;
         padding: 50px;
@@ -80,23 +94,27 @@
         margin-top: -300px;
     }
 
+    /* Title styling */
     .login-title {
         font-size: 24px;
         font-weight: bold;
         margin-bottom: 5px;
     }
 
+    /* Subtext styling */
     .login-subtext {
         font-size: 14px;
         color: #666;
         margin-bottom: 20px;
     }
 
+    /* Form group styling */
     .form-group {
         text-align: left;
         margin-bottom: 15px;
     }
 
+    /* Form control styling */
     .form-control {
         width: 100%;
         padding: 14px;
@@ -106,10 +124,12 @@
         font-size: 16px;
     }
 
+    /* Password input wrapper */
     .password-wrapper {
         position: relative;
     }
 
+    /* Password toggle button */
     .toggle-password {
         position: absolute;
         right: 10px;
@@ -120,6 +140,7 @@
         font-size: 14px;
     }
 
+    /* Login button styling */
     .btn-login {
         width: 100%;
         background-color: #66ccff;
@@ -133,19 +154,23 @@
         transition: background 0.3s ease-in-out;
     }
 
+        /* Login button hover effect */
         .btn-login:hover {
             background-color: #005a66;
         }
 
+    /* Form check styling */
     .form-check {
         text-align: left;
         margin-bottom: 15px;
     }
 
+    /* Login links section */
     .login-links {
         margin-top: 15px;
     }
 
+        /* Login links styling */
         .login-links a {
             display: block;
             font-size: 14px;
@@ -153,8 +178,8 @@
             text-decoration: none;
         }
 
+            /* Login links hover effect */
             .login-links a:hover {
                 text-decoration: underline;
             }
 </style>
-

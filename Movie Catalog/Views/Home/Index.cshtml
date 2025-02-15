@@ -1,10 +1,13 @@
 @model IEnumerable<Movie_Catalog.Models.Movie>
 
 @{
+    // Set the page title
     ViewData["Title"] = "Home Page";
 }
 
+<!-- Custom styling for movie cards -->
 <style>
+    /* Movie card animation and hover effects */
     .movie-card {
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
@@ -14,10 +17,9 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
+    /* Typography styling */
     .display-4 {
         font-family: 'Garamond', sans-serif;
-    }
-
     }
 
     .mt-4 {
@@ -25,21 +27,29 @@
     }
 </style>
 
+<!-- Main content container -->
 <div class="text-center">
+    <!-- Welcome header -->
     <h1 class="display-4">Welcome to the Movie Catalog!</h1>
 
+    <!-- Top movies section -->
     <h2 class="mt-4">🎬 Top movies</h2>
     <div class="row">
+        <!-- Movie cards loop -->
         @foreach (var movie in Model)
         {
             <div class="col-md-4">
+                <!-- Individual movie card -->
                 <div class="card movie-card mb-3" style="width: 18rem;">
                     <div class="card-body">
+                        <!-- Movie poster -->
                         <img src="@movie.PosterUrl" class="card-img-top mb-3" alt="@movie.Title poster">
+                        <!-- Movie details -->
                         <h5 class="card-title">@movie.Title</h5>
                         <p class="card-text">@movie.Description</p>
                         <p class="card-text"><strong>Genre:</strong> @movie.Genre.Name</p>
 
+                        <!-- Details link -->
                         <a asp-controller="Home" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-primary">Details</a>
                     </div>
                 </div>

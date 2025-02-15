@@ -1,25 +1,30 @@
 @model Movie_Catalog.Models.Movie
 
 @{
+    // Set the page title
     ViewData["Title"] = "Add Movie";
 }
 
+<!-- Page styling -->
 <style>
+    /* Base body styling */
     body {
         font-family: 'Roboto', sans-serif;
-        background-color: #f0f8ff; 
+        background-color: #f0f8ff;
         color: #333;
         margin: 0;
         padding: 0;
     }
 
+    /* Main heading styles */
     h2 {
         text-align: center;
         font-size: 2.5rem;
-        color: #4CAF50; 
+        color: #4CAF50;
         margin-bottom: 20px;
     }
 
+    /* Card container styling */
     .card {
         background: linear-gradient(145deg, #ffffff, #f7f7f7);
         border: 1px solid #ddd;
@@ -28,31 +33,37 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
+        /* Card hover effects */
         .card:hover {
             transform: scale(1.03);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
+    /* Card content area */
     .card-body {
         padding: 30px;
     }
 
+    /* Card title styling */
     .card-title {
         font-size: 1.8rem;
-        color: #4CAF50; 
+        color: #4CAF50;
         margin-bottom: 15px;
     }
 
+    /* Form group spacing */
     .form-group {
         margin-bottom: 25px;
     }
 
+    /* Form labels */
     label {
         font-size: 1.2rem;
-        color: #6c757d; 
+        color: #6c757d;
         margin-bottom: 8px;
     }
 
+    /* Form input fields */
     input.form-control, textarea.form-control {
         background-color: #ffffff;
         color: #333;
@@ -64,12 +75,14 @@
         box-sizing: border-box;
     }
 
+        /* Input focus states */
         input.form-control:focus, textarea.form-control:focus {
             border-color: #4CAF50;
             box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
             outline: none;
         }
 
+    /* Button styling */
     button, a.btn {
         padding: 12px 20px;
         font-size: 1rem;
@@ -80,6 +93,7 @@
         transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
+        /* Success button */
         button.btn-success {
             background-color: #4CAF50;
             border: none;
@@ -91,6 +105,7 @@
                 transform: translateY(-3px);
             }
 
+    /* Secondary button */
     a.btn-secondary {
         background-color: #6c757d;
         color: #FFF;
@@ -101,19 +116,23 @@
             transform: translateY(-3px);
         }
 
+    /* Textarea specific styling */
     textarea.form-control {
         height: 150px;
         resize: vertical;
     }
 
+    /* Placeholder text color */
     input[placeholder] {
         color: #888;
     }
 
+    /* Global transition */
     * {
         transition: all 0.3s ease;
     }
 
+    /* Form container */
     form {
         background-color: #ffffff;
         padding: 30px;
@@ -121,6 +140,7 @@
         border: 1px solid #ddd;
     }
 
+    /* Form width constraint */
     .card-body form {
         max-width: 750px;
         margin: 0 auto;
@@ -128,49 +148,64 @@
 </style>
 
 <body>
+    <!-- Page header -->
     <h2>Add Movie</h2>
 
+    <!-- Movie creation form card -->
     <div class="card movie-card mb-4 p-3">
         <div class="card-body">
             <h5 class="card-title">New Movie Details</h5>
+            <!-- Movie creation form -->
             <form asp-controller="Movies" asp-action="CreateMovie">
+                <!-- Title input -->
                 <div class="form-group">
                     <label asp-for="Title" class="control-label"></label>
                     <input asp-for="Title" class="form-control" placeholder="Enter the movie title" />
                 </div>
+
+                <!-- Genre selection -->
                 <div class="form-group">
                     <label asp-for="GenreId" class="control-label">Genre</label>
                     <select asp-for="GenreId" class="form-control" asp-items="ViewBag.Genres"></select>
                     <span asp-validation-for="GenreId" class="text-danger"></span>
                 </div>
 
+                <!-- Director selection -->
                 <div class="form-group">
                     <label asp-for="DirectorId" class="control-label">Director</label>
                     <select asp-for="DirectorId" class="form-control" asp-items="ViewBag.Directors"></select>
                     <span asp-validation-for="DirectorId" class="text-danger"></span>
                 </div>
+
+                <!-- Actors multi-select -->
                 <div class="form-group">
                     <label class="control-label">Actors</label>
                     <select name="selectedActorsIds" class="form-control" asp-items="ViewBag.Actors" multiple></select>
                 </div>
+
+                <!-- Description textarea -->
                 <div class="form-group">
                     <label asp-for="Description" class="control-label">Description</label>
                     <textarea asp-for="Description" class="form-control" placeholder="Enter movie description"></textarea>
                 </div>
+
+                <!-- Release year input -->
                 <div class="form-group">
                     <label asp-for="ReleaseYear" class="control-label">Release Year</label>
                     <input asp-for="ReleaseYear" class="form-control" placeholder="Enter the release year" />
                 </div>
+
+                <!-- Poster URL input -->
                 <div class="form-group">
                     <label asp-for="PosterUrl" class="control-label">Movie Poster</label>
                     <input asp-for="PosterUrl" class="form-control" type="string" />
                     <span asp-validation-for="PosterUrl" class="text-danger"></span>
                 </div>
+
+                <!-- Form buttons -->
                 <button type="submit" class="btn btn-success">Save</button>
                 <a asp-action="Index" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
-
 </body>
-

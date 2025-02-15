@@ -1,15 +1,20 @@
 @model Movie_Catalog.Models.RegisterViewModel
 
 @{
+    // Set the page title
     ViewData["Title"] = "Register";
 }
+
+<!-- Main registration styling -->
 <style>
+    /* Base body styling */
     body {
         background-color: #a3d5f7;
         font-family: 'Poppins', sans-serif;
         color: #333;
     }
 
+    /* Registration container layout */
     .register-container {
         display: flex;
         justify-content: center;
@@ -17,6 +22,7 @@
         height: 100vh;
     }
 
+    /* Registration card styling */
     .register-card {
         background: white;
         padding: 40px;
@@ -26,6 +32,7 @@
         text-align: center;
     }
 
+    /* Title styling */
     .register-title {
         font-size: 24px;
         font-weight: bold;
@@ -33,17 +40,20 @@
         color: #0078d4;
     }
 
+    /* Subtext styling */
     .register-subtext {
         font-size: 14px;
         color: #666;
         margin-bottom: 20px;
     }
 
+    /* Form group layout */
     .form-group {
         text-align: left;
         margin-bottom: 15px;
     }
 
+    /* Input group styling */
     .input-group {
         display: flex;
         align-items: center;
@@ -52,12 +62,14 @@
         padding: 10px;
     }
 
+        /* Icon styling in input groups */
         .input-group .icon {
             margin-right: 10px;
             font-size: 18px;
             color: #0078d4;
         }
 
+    /* Form control styling */
     .form-control {
         width: 100%;
         border: none;
@@ -66,6 +78,7 @@
         outline: none;
     }
 
+    /* Register button styling */
     .btn-register {
         width: 100%;
         background-color: #0078d4;
@@ -79,75 +92,87 @@
         transition: background 0.3s ease-in-out;
     }
 
+        /* Register button hover effect */
         .btn-register:hover {
             background-color: #005fa3;
         }
 
+    /* Login link section */
     .login-link {
         margin-top: 15px;
         font-size: 14px;
     }
 
+        /* Login link styling */
         .login-link a {
             color: #0078d4;
             text-decoration: none;
         }
 
+            /* Login link hover effect */
             .login-link a:hover {
                 text-decoration: underline;
             }
 </style>
+
 <body>
+    <!-- Main registration container -->
+    <div class="register-container">
+        <!-- Registration card with form -->
+        <div class="register-card">
+            <h2 class="register-title">Create Your Account</h2>
+            <p class="register-subtext">Join us and explore a world of movies!</p>
 
-<div class="register-container">
-    <div class="register-card">
-        <h2 class="register-title">Create Your Account</h2>
-        <p class="register-subtext">Join us and explore a world of movies!</p>
+            <!-- Registration form with validation -->
+            <form asp-controller="Account" asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <form asp-controller="Account" asp-action="Register" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="Username"></label>
-                <div class="input-group">
-                    <span class="icon">👤</span>
-                    <input asp-for="Username" class="form-control" placeholder="Username" />
+                <!-- Username input group -->
+                <div class="form-group">
+                    <label asp-for="Username"></label>
+                    <div class="input-group">
+                        <span class="icon">👤</span>
+                        <input asp-for="Username" class="form-control" placeholder="Username" />
+                    </div>
+                    <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <div class="input-group">
-                    <span class="icon">📧</span>
-                    <input asp-for="Email" class="form-control" placeholder="E-mail" />
+                <!-- Email input group -->
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <div class="input-group">
+                        <span class="icon">📧</span>
+                        <input asp-for="Email" class="form-control" placeholder="E-mail" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <div class="input-group">
-                    <span class="icon">🔒</span>
-                    <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                <!-- Password input group -->
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <div class="input-group">
+                        <span class="icon">🔒</span>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <div class="input-group">
-                    <span class="icon">🔒</span>
-                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" />
+                <!-- Confirm Password input group -->
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <div class="input-group">
+                        <span class="icon">🔒</span>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" />
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
 
-            <button type="submit" class="btn btn-primary btn-register">Create Account</button>
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-register">Create Account</button>
 
-            <p class="login-link">Already have an account? <a href="/Account/Login">Login here</a></p>
-        </form>
+                <!-- Login link for existing users -->
+                <p class="login-link">Already have an account? <a href="/Account/Login">Login here</a></p>
+            </form>
+        </div>
     </div>
-</div>
-
 </body>

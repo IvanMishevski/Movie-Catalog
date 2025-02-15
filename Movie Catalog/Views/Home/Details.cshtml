@@ -1,10 +1,13 @@
 @model Movie_Catalog.Models.Movie
 
 @{
+    // Set the page title to the movie title
     ViewData["Title"] = Model.Title;
 }
 
+<!-- Page styling -->
 <style>
+    /* Base body styling */
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -13,6 +16,7 @@
         color: #333;
     }
 
+    /* Movie details container layout */
     .movie-details-container {
         display: flex;
         flex-direction: row;
@@ -25,17 +29,20 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
+    /* Movie poster styling */
     .movie-cover {
         max-width: 300px;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
+    /* Movie information section */
     .movie-info {
         flex: 1;
         max-width: 600px;
     }
 
+    /* Movie title styling */
     .movie-title {
         font-size: 2rem;
         font-weight: bold;
@@ -43,11 +50,13 @@
         margin-bottom: 20px;
     }
 
+    /* Movie details text */
     .movie-info p {
         margin: 8px 0;
         font-size: 1.1rem;
     }
 
+    /* Button base styling */
     .btn {
         padding: 10px 20px;
         font-size: 1rem;
@@ -58,6 +67,7 @@
         text-align: center;
     }
 
+    /* Success button styling */
     .btn-success {
         background-color: #28a745;
         color: white;
@@ -67,6 +77,7 @@
             background-color: #218838;
         }
 
+    /* Secondary button styling */
     .btn-secondary {
         background-color: #6c757d;
         color: white;
@@ -77,6 +88,7 @@
             background-color: #5a6268;
         }
 
+    /* Review section styling */
     .review-section {
         margin-top: 10px;
         padding: 10px;
@@ -94,6 +106,7 @@
             color: #333;
         }
 
+    /* Review form container */
     .review-container {
         display: flex;
         flex-direction: column;
@@ -101,6 +114,7 @@
         width: 100%;
     }
 
+        /* Review form inputs */
         .review-container textarea,
         .review-container select {
             width: 100%;
@@ -122,17 +136,20 @@
             color: #333;
         }
 
+            /* Form input focus states */
             .review-container select:focus,
             .review-container textarea:focus {
                 border-color: #007bff;
                 outline: none;
             }
 
+    /* Button container */
     .btn-container {
         display: flex;
         justify-content: flex-end;
     }
 
+    /* Review submit button */
     .review-section button {
         padding: 12px 24px;
         font-size: 1rem;
@@ -151,11 +168,14 @@
 </style>
 
 <body>
+    <!-- Movie details section -->
     <div class="movie-details-container">
+        <!-- Movie poster -->
         <div>
             <img src="@Model.PosterUrl" alt="Cover of @Model.Title" class="movie-cover">
         </div>
 
+        <!-- Movie information -->
         <div class="movie-info">
             <h1 class="movie-title">@Model.Title</h1>
             <p><strong>Genre:</strong> @Model.Genre.Name</p>
@@ -167,6 +187,7 @@
             <p><strong>Description:</strong> @Model.Description</p>
             <p><strong>Release Year:</strong> @Model.ReleaseYear</p>
 
+            <!-- Watchlist button (only shown to authenticated users) -->
             @if (!ViewBag.IsInWatchlist && User.Identity.IsAuthenticated)
             {
                 <form asp-controller="Watchlist" asp-action="AddToWatchlist" method="post">
@@ -174,13 +195,13 @@
                     <button type="submit" class="btn btn-success">Add to Watchlist</button>
                 </form>
             }
-            
 
+            <!-- Back to movies button -->
             <a asp-controller="Movies" asp-action="Index" class="btn btn-secondary">Back to Movies</a>
         </div>
     </div>
 
-    <!-- Add Review and Rating Section -->
+    <!-- Review section (only shown to authenticated users) -->
     @if (User.Identity.IsAuthenticated)
     {
         <div class="review-section">
@@ -210,5 +231,4 @@
             </form>
         </div>
     }
-
 </body>

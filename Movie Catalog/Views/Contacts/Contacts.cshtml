@@ -1,20 +1,29 @@
 ﻿@{
+    // Set the page title
     ViewData["Title"] = "Contacts";
 }
+
 <!DOCTYPE html>
 <html lang="bg">
 <head>
+    <!-- Meta tags for proper rendering and character encoding -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Контакти</title>
+
+    <!-- Font Awesome icons library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Contact page styling -->
     <style>
+        /* Base body styling */
         body {
             font-family: 'Garamond', sans-serif;
             background-color: #f8f9fa;
             text-align: center;
         }
 
+        /* Contact container layout */
         .contact-container {
             margin: auto;
             background: white;
@@ -23,60 +32,69 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Individual contact item styling */
         .contact-item {
             margin: 15px 0;
             font-size: 18px;
         }
 
+            /* Contact icons styling */
             .contact-item i {
                 color: #007bff;
                 margin-right: 10px;
             }
 
+        /* Link styling */
         a {
             text-decoration: none;
             color: #333;
         }
 
+            /* Link hover effect */
             a:hover {
                 color: #007bff;
             }
     </style>
 </head>
 <body>
-
+    <!-- Main contact information container -->
     <div class="contact-container">
-      <h2>Contact us</h2>
+        <h2>Contact us</h2>
 
+        <!-- Email contact -->
         <div class="contact-item">
             <i class="fa-solid fa-envelope"></i>
             <a href="mailto:info@moviecatalog.com">info@moviecatalog.com</a>
         </div>
 
+        <!-- Phone contact -->
         <div class="contact-item">
             <i class="fa-solid fa-phone"></i>
             <a href="tel:+359123456789">+359 123 456 789</a>
         </div>
 
+        <!-- Physical address -->
         <div class="contact-item">
             <i class="fa-solid fa-map-marker-alt"></i>
             <span>Plovdiv, Bulgaria</span>
         </div>
 
+        <!-- Social media - Facebook -->
         <div class="contact-item">
             <i class="fa-brands fa-facebook"></i>
             <a href="https://www.facebook.com/moviecatalog" target="_blank">Facebook</a>
         </div>
 
+        <!-- Social media - Instagram -->
         <div class="contact-item">
             <i class="fa-brands fa-instagram"></i>
             <a href="https://www.instagram.com/moviecatalog" target="_blank">Instagram</a>
         </div>
 
+        <!-- Google Maps embed -->
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19903.45557948531!2d24.678377555563905!3d42.13602501988967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14accfdb75b14a37%3A0xe851ae74dbdb9f08!2z0JzQsNGC0LXQvNCw0YLQuNGH0LXRgdC60LAg0LPQuNC80L3QsNC30LjRjyDigJ7QkNC60LDQtNC10LzQuNC6INCa0LjRgNC40Lsg0J_QvtC_0L7QsuKAnA!5e0!3m2!1sbg!2sbg!4v1739368511367!5m2!1sbg!2sbg"
                 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
         </iframe>
     </div>
 </body>
 </html>
-
